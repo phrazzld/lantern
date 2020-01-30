@@ -1,0 +1,3 @@
+# Lantern
+
+Containerized development environment.
