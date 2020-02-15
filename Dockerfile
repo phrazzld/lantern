@@ -2,6 +2,7 @@ FROM ubuntu:18.04
 MAINTAINER Phaedrus Raznikov <phraznikov@gmail.com>
 
 ARG HOME=/root
+ARG LANTERN_HOME=${HOME}/lantern
 
 RUN export TERM="screen-256color" \
         && export DEBIAN_FRONTEND="noninteractive" \
@@ -45,12 +46,13 @@ RUN export TERM="screen-256color" \
         && curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh || true \
         # Install Vim Plug
         && curl -fLo ${HOME}/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | bash -
-
-# Get dev config
-COPY zshrc ${HOME}/.zshrc
-COPY init.vim ${HOME}/.config/nvim/init.vim
-RUN nvim +PlugInstall +qall
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | bash - \
+        # Get dev config
+        && git clone https://github.com/phrazzld/lantern ${LANTERN_HOME} \
+        && cp ${LANTERN_HOME}/zshrc ${HOME}/.zshrc \
+        && mkdir -p ${HOME}/.config/nvim \
+        && cp ${LANTERN_HOME}/init.vim ${HOME}/.config/nvim/init.vim \
+        && nvim +PlugInstall +qall
 
 WORKDIR ${HOME}/oa
 
