@@ -22,13 +22,22 @@ setopt inc_append_history
 setopt share_history
 setopt bang_hist
 
-# Aliases
-alias r="rubberduck"
+# Aliases for:
+# Editing
+alias v="nvim"
 alias vz="v $HOME/.zshrc"
 alias vn="v $HOME/.config/nvim/init.vim"
-alias sc='screensaver'
+# Gitting
 alias gs='git status'
 alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
-alias v="nvim"
+alias gap='ga -p'
+# Looking
+alias l="exa --long --all"
+alias lt="exa --long --all --tree"
+alias cat="bat"
+# Sourcing
+alias clear="clear && source $HOME/.zshrc"
+# Authenticating
+alias agent='eval "$(ssh-agent -s)"; ssh-add -K ~/.ssh/id_rsa'

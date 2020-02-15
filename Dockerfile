@@ -27,6 +27,8 @@ RUN export TERM="screen-256color" \
         unzip \
         libssl-dev \
         libffi-dev \
+        # Required for `bat`
+        libclang-dev \
         locales \
         cmake \
         zsh \
@@ -54,7 +56,9 @@ RUN export TERM="screen-256color" \
         && cp ${SEASTEAD_HOME}/init.vim ${HOME}/.config/nvim/init.vim \
         && nvim +PlugInstall +qall \
         # Install Rust
-        && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+        && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
+        && /root/.cargo/bin/cargo install exa \
+        && /root/.cargo/bin/cargo install bat
 
 WORKDIR ${HOME}/rose_island
 

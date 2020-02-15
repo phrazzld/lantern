@@ -1,0 +1,22 @@
+# Vim temporary files
+*~
+*.swo
+*.swp
+
+# Packages
+*.dmg
+*.tar
+*.zip
+*.gz
+*.iso
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Virtual environment configurations
+venv/
+
+# npm packages
+node_modules/
