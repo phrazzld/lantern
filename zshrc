@@ -5,6 +5,10 @@ plugins=(git node osx python)
 export ZSH=$HOME/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
+# Path configs
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # History
 HISTFILE=~/.zsh_history
 HISTSIZE=1024

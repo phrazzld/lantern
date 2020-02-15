@@ -52,7 +52,9 @@ RUN export TERM="screen-256color" \
         && cp ${SEASTEAD_HOME}/zshrc ${HOME}/.zshrc \
         && mkdir -p ${HOME}/.config/nvim \
         && cp ${SEASTEAD_HOME}/init.vim ${HOME}/.config/nvim/init.vim \
-        && nvim +PlugInstall +qall
+        && nvim +PlugInstall +qall \
+        # Install Rust
+        && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 WORKDIR ${HOME}/rose_island
 
