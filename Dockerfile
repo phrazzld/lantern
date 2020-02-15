@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 MAINTAINER Phaedrus Raznikov <phraznikov@gmail.com>
 
 ARG HOME=/root
-ARG LANTERN_HOME=${HOME}/lantern
+ARG SEASTEAD_HOME=${HOME}/seastead
 
 RUN export TERM="screen-256color" \
         && export DEBIAN_FRONTEND="noninteractive" \
@@ -48,12 +48,12 @@ RUN export TERM="screen-256color" \
         && curl -fLo ${HOME}/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | bash - \
         # Get dev config
-        && git clone https://github.com/phrazzld/lantern ${LANTERN_HOME} \
-        && cp ${LANTERN_HOME}/zshrc ${HOME}/.zshrc \
+        && git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
+        && cp ${SEASTEAD_HOME}/zshrc ${HOME}/.zshrc \
         && mkdir -p ${HOME}/.config/nvim \
-        && cp ${LANTERN_HOME}/init.vim ${HOME}/.config/nvim/init.vim \
+        && cp ${SEASTEAD_HOME}/init.vim ${HOME}/.config/nvim/init.vim \
         && nvim +PlugInstall +qall
 
-WORKDIR ${HOME}/oa
+WORKDIR ${HOME}/rose_island
 
 CMD [ "zsh" ]
