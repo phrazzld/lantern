@@ -60,6 +60,12 @@ RUN export TERM="screen-256color" \
         && /root/.cargo/bin/cargo install exa \
         && /root/.cargo/bin/cargo install bat
 
+# Set timezone
+RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
+ENV TZ=America/Los_Angeles
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN dpkg-reconfigure --frontend noninteractive tzdata
+
 WORKDIR ${HOME}/rose_island
 
 CMD [ "zsh" ]
