@@ -14,6 +14,7 @@ RUN export TERM="screen-256color" \
         wget \
         git \
         vim \
+        man \
         software-properties-common \
         python-dev \
         python-pip \
