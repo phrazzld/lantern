@@ -25,6 +25,23 @@ setopt inc_append_history
 setopt share_history
 setopt bang_hist
 
+# Functions
+pullpasses() {
+    if [ -n "$1" ]; then
+        lpass show $(lpass ls | grep -i "$1" | awk '{ print $3 }' | sed 's/.$//')
+    else
+        echo "Error: missing search term"
+    fi
+}
+
+pullpass() {
+    if [ -n "$1" ]; then
+        pullpasses "$1" | grep -i "Password:" | awk '{ print $2 }' | head -1 | pbcopy
+    else
+        echo "Error: missing search term"
+    fi
+}
+
 # Aliases for:
 # Editing
 alias v="nvim"

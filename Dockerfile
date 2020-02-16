@@ -28,7 +28,6 @@ RUN export TERM="screen-256color" \
         unzip \
         libssl-dev \
         libffi-dev \
-        # Required for `bat`
         libclang-dev \
         locales \
         cmake \
@@ -66,7 +65,27 @@ RUN export TERM="screen-256color" \
         && apt-get update -y \
         && apt-get install -y golang \
         && mkdir -p ${HOME}/go/src \
-        && go get github.com/phrazzld/rubberduck
+        && go get github.com/phrazzld/rubberduck \
+        # LastPass
+        # Install dependencies
+        && apt-get --no-install-recommends -yqq install \
+        bash-completion \
+        build-essential \
+        cmake \
+        libcurl4 \
+        libcurl4-openssl-dev \
+        libssl-dev \
+        libxml2 \
+        libxml2-dev \
+        libssl1.1 \
+        pkg-config \
+        ca-certificates \
+        xclip \
+        # lastpass-cli
+        && git clone https://github.com/lastpass/lastpass-cli.git /tmp/lastpass-cli \
+        && cd /tmp/lastpass-cli \
+        && make \
+        && make install
 
 # Set timezone
 RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
