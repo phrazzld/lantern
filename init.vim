@@ -12,7 +12,7 @@ Plug 'prettier/vim-prettier', {
     \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-abolish'
-Plug 'tpope/rails-vim'
+Plug 'tpope/vim-rails'
 call plug#end()
 
 "" Appearance

@@ -51,12 +51,16 @@ RUN export TERM="screen-256color" \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | bash - \
         # Get dev config
         && git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
-        && cp ${SEASTEAD_HOME}/zshrc ${HOME}/.zshrc \
+        # zsh config
+        && rm ${HOME}/.zshrc \
+        && ln -sf ${SEASTEAD_HOME}/zshrc ${HOME}/.zshrc \
+        # nvim config
         && mkdir -p ${HOME}/.config/nvim \
-        && cp ${SEASTEAD_HOME}/init.vim ${HOME}/.config/nvim/init.vim \
+        && ln -sf ${SEASTEAD_HOME}/init.vim ${HOME}/.config/nvim/init.vim \
         && nvim +PlugInstall +qall \
-        && cp ${SEASTEAD_HOME}/gitconfig ${HOME}/.gitconfig \
-        && cp ${SEASTEAD_HOME}/gitignore ${HOME}/.gitignore \
+        # gitconfigs
+        && ln -sf ${SEASTEAD_HOME}/gitconfig ${HOME}/.gitconfig \
+        && ln -sf ${SEASTEAD_HOME}/gitignore ${HOME}/.gitignore \
         # Install Rust
         && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
         && /root/.cargo/bin/cargo install exa \
@@ -85,10 +89,14 @@ RUN export TERM="screen-256color" \
         && git clone https://github.com/lastpass/lastpass-cli.git /tmp/lastpass-cli \
         && cd /tmp/lastpass-cli \
         && make \
-        && make install
+        && make install \
+        # Cleanup
+        && rm -rf /var/lib/apt/lists/*
 
 # Set timezone
-RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
+RUN apt-get update -y \
+        && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata \
+        && rm -rf /var/lib/apt/lists/*
 ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN dpkg-reconfigure --frontend noninteractive tzdata
