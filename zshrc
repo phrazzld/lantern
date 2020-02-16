@@ -43,6 +43,6 @@ alias cat="bat"
 # Sourcing
 alias clear="clear && source $HOME/.zshrc"
 # Authenticating
-alias agent='eval "$(ssh-agent -s)"; ssh-add -K ~/.ssh/id_rsa'
+alias agent='eval "$(ssh-agent -s)"; ssh-add ~/.ssh/id_rsa'
 # Rubberducking
 alias r='rubberduck'
