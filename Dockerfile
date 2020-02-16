@@ -60,12 +60,7 @@ RUN export TERM="screen-256color" \
         # Install Rust
         && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
         && /root/.cargo/bin/cargo install exa \
-        && /root/.cargo/bin/cargo install bat \
-        # Install Go
-        && apt-get update -y \
-        && apt-get install -y golang \
-        && mkdir -p ${HOME}/go/src \
-        && go get github.com/phrazzld/rubberduck
+        && /root/.cargo/bin/cargo install bat
 
 # Set timezone
 RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata

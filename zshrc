@@ -8,9 +8,6 @@ source $ZSH/oh-my-zsh.sh
 # Path configs
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
-# Go
-export GOPATH=`go env GOPATH`
-export PATH="$PATH:$GOPATH/bin"
 
 # History
 HISTFILE=~/.zsh_history
@@ -45,6 +42,4 @@ alias cat="bat"
 # Sourcing
 alias clear="clear && source $HOME/.zshrc"
 # Authenticating
-alias agent='eval "$(ssh-agent -s)"; ssh-add ~/.ssh/id_rsa'
-# Rubberducking
-alias r='rubberduck'
+alias agent='eval "$(ssh-agent -s)"; ssh-add -K ~/.ssh/id_rsa'
