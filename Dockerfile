@@ -7,7 +7,7 @@ ARG SEASTEAD_HOME=${HOME}/seastead
 RUN export TERM="screen-256color" \
         && export DEBIAN_FRONTEND="noninteractive" \
         && apt-get update \
-        && apt-get install -y \
+        && apt-get install -y --no-install-recommends \
         htop \
         bash \
         curl \
@@ -39,10 +39,10 @@ RUN export TERM="screen-256color" \
         # Install Neovim
         && add-apt-repository -y ppa:neovim-ppa/stable \
         && apt-get update -y \
-        && apt-get install -y neovim \
+        && apt-get install -y --no-install-recommends neovim \
         # Install Node
         && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
-        && apt-get install -y nodejs \
+        && apt-get install -y --no-install-recommends nodejs \
         # Install Oh My ZSH
         && chsh -s $(which zsh) \
         && curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh || true \
@@ -67,7 +67,7 @@ RUN export TERM="screen-256color" \
         && /root/.cargo/bin/cargo install bat \
         # Install Go
         && apt-get update -y \
-        && apt-get install -y golang \
+        && apt-get install -y --no-install-recommends golang \
         && mkdir -p ${HOME}/go/src \
         && go get github.com/phrazzld/rubberduck \
         # LastPass
@@ -95,7 +95,7 @@ RUN export TERM="screen-256color" \
 
 # Set timezone
 RUN apt-get update -y \
-        && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata \
+        && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata \
         && rm -rf /var/lib/apt/lists/*
 ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
