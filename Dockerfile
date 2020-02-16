@@ -60,6 +60,11 @@ RUN export TERM="screen-256color" \
         && /root/.cargo/bin/cargo install exa \
         && /root/.cargo/bin/cargo install bat
 
+RUN apt-get update -y \
+        && apt-get install -y golang \
+        && mkdir -p ${HOME}/go/src \
+        && go get github.com/phrazzld/rubberduck
+
 WORKDIR ${HOME}/rose_island
 
 CMD [ "zsh" ]
