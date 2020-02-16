@@ -1,5 +1,6 @@
 " Set up Plugins
 call plug#begin(stdpath('data') . '/plugged')
+Plug 'fatih/vim-go', { 'do' : ':GoUpdateBinaries' }
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
@@ -10,6 +11,8 @@ Plug 'prettier/vim-prettier', {
     \ 'do': 'npm install',
     \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/rails-vim'
 call plug#end()
 
 "" Appearance
@@ -91,12 +94,8 @@ autocmd BufWritePre *.ejs,*.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json
 autocmd BufWritePre *.rs RustFmt
 
 " Different filetypes deserve different colorschemes
-"autocmd BufEnter *.md colorscheme comrade "frantic
-"autocmd BufEnter *.js colorscheme glance
-"autocmd BufEnter *.go colorscheme frantic
-autocmd BufEnter *.rs colorscheme laravel
-" use a light colorscheme if it's so daytime out
-"let hour = strftime("%H")
-"if hour > 7 && hour <= 17
-"    colorscheme isotope-light
-"endif
+autocmd BufEnter *.md colorscheme frantic
+autocmd BufEnter *.js colorscheme monzo
+autocmd BufEnter *.go colorscheme absent-contrast
+autocmd BufEnter *.rs colorscheme laravel-contrast
+autocmd BufEnter *.rb colorscheme stark

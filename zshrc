@@ -55,6 +55,7 @@ alias gp='git push'
 alias gap='ga -p'
 alias gh='git checkout'
 alias ghb='gh -b'
+alias gf='git diff'
 # Looking
 alias l="exa --long --all"
 alias lt="exa --long --all --tree"
