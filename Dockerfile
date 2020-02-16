@@ -55,15 +55,23 @@ RUN export TERM="screen-256color" \
         && mkdir -p ${HOME}/.config/nvim \
         && cp ${SEASTEAD_HOME}/init.vim ${HOME}/.config/nvim/init.vim \
         && nvim +PlugInstall +qall \
+        && cp ${SEASTEAD_HOME}/gitconfig ${HOME}/.gitconfig \
+        && cp ${SEASTEAD_HOME}/gitignore ${HOME}/.gitignore \
         # Install Rust
         && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
         && /root/.cargo/bin/cargo install exa \
-        && /root/.cargo/bin/cargo install bat
-
-RUN apt-get update -y \
+        && /root/.cargo/bin/cargo install bat \
+        # Install Go
+        && apt-get update -y \
         && apt-get install -y golang \
         && mkdir -p ${HOME}/go/src \
         && go get github.com/phrazzld/rubberduck
+
+# Set timezone
+RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
+ENV TZ=America/Los_Angeles
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN dpkg-reconfigure --frontend noninteractive tzdata
 
 WORKDIR ${HOME}/rose_island
 
