@@ -55,6 +55,8 @@ RUN export TERM="screen-256color" \
         && mkdir -p ${HOME}/.config/nvim \
         && cp ${SEASTEAD_HOME}/init.vim ${HOME}/.config/nvim/init.vim \
         && nvim +PlugInstall +qall \
+        && cp ${SEASTEAD_HOME}/gitconfig ${HOME}/.gitconfig \
+        && cp ${SEASTEAD_HOME}/gitignore ${HOME}/.gitignore \
         # Install Rust
         && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
         && /root/.cargo/bin/cargo install exa \
