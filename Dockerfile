@@ -52,7 +52,6 @@ RUN export TERM="screen-256color" \
         # Get dev config
         && git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         # zsh config
-        && rm ${HOME}/.zshrc \
         && ln -sf ${SEASTEAD_HOME}/zshrc ${HOME}/.zshrc \
         # nvim config
         && mkdir -p ${HOME}/.config/nvim \
