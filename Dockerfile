@@ -111,7 +111,7 @@ RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
 
 # fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
-        && ~/.fzf/install
+    && ~/.fzf/install
 
 # Autojump
 RUN git clone https://github.com/wting/autojump.git \
