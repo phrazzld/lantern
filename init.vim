@@ -122,7 +122,7 @@ autocmd BufWritePre *.ejs,*.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json
 autocmd BufWritePre *.rs RustFmt
 
 " Different filetypes deserve different colorschemes
-autocmd BufEnter *.md colorscheme frantic
+autocmd BufEnter *.md colorscheme carbonight-light
 autocmd BufEnter *.js colorscheme monzo
 autocmd BufEnter *.go colorscheme absent-contrast
 autocmd BufEnter *.rs colorscheme laravel-contrast
