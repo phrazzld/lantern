@@ -1,7 +1,8 @@
 ZSH_THEME="wezm"
 COMPLETION_WAITING_DOTS="true"
-plugins=(git node osx python)
+plugins=(git node python fzf autojump)
 
+export SHELL="zsh"
 export ZSH=$HOME/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
@@ -9,8 +10,8 @@ source $ZSH/oh-my-zsh.sh
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
 # Go
-export GOPATH=`go env GOPATH`
-export PATH="$PATH:$GOPATH/bin"
+export GOPATH="$HOME/go"
+export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
 
 # History
 HISTFILE=~/.zsh_history
@@ -66,3 +67,7 @@ alias clear="clear && source $HOME/.zshrc"
 alias agent='eval "$(ssh-agent -s)"; ssh-add ~/.ssh/id_rsa'
 # Rubberducking
 alias r='rubberduck'
+
+# Autojump
+[[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autojump/etc/profile.d/autojump.sh
+autoload -U compinit && compinit -u

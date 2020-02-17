@@ -4,7 +4,7 @@ Containerized development environment.
 
 ## Usage
 
-`/root/rose_island` is `seastead`s default working directory, so if you wanted to use `seastead` to work on the contents of your local `development` directory, you would run:
+`/root/rose_island` is seastead's default working directory, so if you wanted to use seastead to work on the contents of your local `development` directory, you would run:
 
 ```
 docker run -it --name seastead --rm \

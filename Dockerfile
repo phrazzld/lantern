@@ -4,6 +4,7 @@ MAINTAINER Phaedrus Raznikov <phraznikov@gmail.com>
 ARG HOME=/root
 ARG SEASTEAD_HOME=${HOME}/seastead
 
+# Core
 RUN export TERM="screen-256color" \
         && export DEBIAN_FRONTEND="noninteractive" \
         && apt-get update \
@@ -33,43 +34,50 @@ RUN export TERM="screen-256color" \
         cmake \
         zsh \
         gpg-agent \
+        silversearcher-ag \
         && locale-gen en_US.UTF-8 \
         && export LANG="en_US.UTF-8" \
         && export LANGUAGE="en_US:en" \
         && export LC_ALL="en_US.UTF-8" \
-        # Install Neovim
-        && add-apt-repository -y ppa:neovim-ppa/stable \
+        && rm -rf /var/lib/apt/lists/*
+
+# Install Neovim
+RUN add-apt-repository -y ppa:neovim-ppa/stable \
+        && apt-get update \
         && apt-get install -y neovim \
-        # Install Node
-        && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+        && rm -rf /var/lib/apt/lists/*
+
+# Install Node
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+        && apt-get update \
         && apt-get install -y nodejs \
-        # Install Oh My ZSH
-        && chsh -s $(which zsh) \
-        && curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh || true \
-        # Install Vim Plug
-        && curl -fLo ${HOME}/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | bash - \
-        # Get dev config
-        && git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
-        # zsh config
-        && ln -sf ${SEASTEAD_HOME}/zshrc ${HOME}/.zshrc \
-        # nvim config
-        && mkdir -p ${HOME}/.config/nvim \
-        && ln -sf ${SEASTEAD_HOME}/init.vim ${HOME}/.config/nvim/init.vim \
-        && nvim +PlugInstall +qall \
-        # gitconfigs
-        && ln -sf ${SEASTEAD_HOME}/gitconfig ${HOME}/.gitconfig \
-        && ln -sf ${SEASTEAD_HOME}/gitignore ${HOME}/.gitignore \
-        # Install Rust
-        && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
+        && rm -rf /var/lib/apt/lists/*
+
+# Install Oh My ZSH
+RUN chsh -s $(which zsh) \
+        && curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh || true
+
+# Install Vim Plug
+RUN curl -fLo ${HOME}/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | bash -
+
+# Install Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
         && /root/.cargo/bin/cargo install exa \
-        && /root/.cargo/bin/cargo install bat \
-        # Install Go
-        && apt-get install -y golang \
-        && mkdir -p ${HOME}/go/src \
-        && go get github.com/phrazzld/rubberduck \
-        # LastPass
-        # Install dependencies
+        && /root/.cargo/bin/cargo install bat
+
+# Install Go (and rubberduck)
+RUN wget https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz \
+        && tar -xvf go1.13.3.linux-amd64.tar.gz \
+        && chown -R root:root ./go \
+        && mv go /usr/local \
+        && export GOPATH=$HOME/go \
+        && export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin \
+        && go get github.com/phrazzld/rubberduck
+
+# LastPass
+# Install dependencies
+RUN apt-get update \
         && apt-get --no-install-recommends -yqq install \
         bash-completion \
         build-essential \
@@ -87,9 +95,29 @@ RUN export TERM="screen-256color" \
         && git clone https://github.com/lastpass/lastpass-cli.git /tmp/lastpass-cli \
         && cd /tmp/lastpass-cli \
         && make \
-        && make install \
-        # Cleanup
-        && rm -rf /var/lib/apt/lists/*
+        && make install
+
+# Dev config
+RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
+        # zsh config
+        && ln -sf ${SEASTEAD_HOME}/zshrc ${HOME}/.zshrc \
+        # nvim config
+        && mkdir -p ${HOME}/.config/nvim \
+        && ln -sf ${SEASTEAD_HOME}/init.vim ${HOME}/.config/nvim/init.vim \
+        && nvim +PlugInstall +qall \
+        # gitconfigs
+        && ln -sf ${SEASTEAD_HOME}/gitconfig ${HOME}/.gitconfig \
+        && ln -sf ${SEASTEAD_HOME}/gitignore ${HOME}/.gitignore
+
+# fzf
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
+        && ~/.fzf/install
+
+# Autojump
+RUN git clone https://github.com/wting/autojump.git \
+        && cd autojump \
+        && export SHELL="zsh" \
+        && ./install.py
 
 # Set timezone
 RUN apt-get update -y \
