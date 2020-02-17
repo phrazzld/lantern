@@ -1,4 +1,4 @@
-ZSH_THEME="wezm"
+ZSH_THEME="typewritten"
 COMPLETION_WAITING_DOTS="true"
 plugins=(git node python fzf autojump)
 
