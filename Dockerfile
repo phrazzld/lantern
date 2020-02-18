@@ -39,18 +39,24 @@ RUN export TERM="screen-256color" \
         && export LANG="en_US.UTF-8" \
         && export LANGUAGE="en_US:en" \
         && export LC_ALL="en_US.UTF-8" \
+        # Cleanup
+        && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
 
 # Install Neovim
 RUN add-apt-repository -y ppa:neovim-ppa/stable \
         && apt-get update \
         && apt-get install -y neovim \
+        # Cleanup
+        && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
 
 # Install Node
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
         && apt-get update \
         && apt-get install -y nodejs \
+        # Cleanup
+        && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
 
 # Install Oh My ZSH
@@ -64,7 +70,9 @@ RUN curl -fLo ${HOME}/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 # Install Rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
         && /root/.cargo/bin/cargo install exa \
-        && /root/.cargo/bin/cargo install bat
+        && /root/.cargo/bin/cargo install bat \
+        # Cleanup
+        && rm -rf /root/.rustup
 
 # Install Go (and rubberduck)
 RUN wget https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz \
@@ -73,7 +81,11 @@ RUN wget https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz \
         && mv go /usr/local \
         && export GOPATH=$HOME/go \
         && export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin \
-        && go get github.com/phrazzld/rubberduck
+        && go get github.com/phrazzld/rubberduck \
+        # Cleanup
+        && rm /go1.13.3.linux-amd64.tar.gz \
+        && rm -rf /root/go/src \
+        && rm -rf /root/.cache
 
 # LastPass
 # Install dependencies
@@ -95,7 +107,10 @@ RUN apt-get update \
         && git clone https://github.com/lastpass/lastpass-cli.git /tmp/lastpass-cli \
         && cd /tmp/lastpass-cli \
         && make \
-        && make install
+        && make install \
+        # Cleanup
+        && apt-get clean \
+        && rm -rf /var/lib/apt/lists/*
 
 # Dev config
 RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
@@ -125,6 +140,8 @@ RUN git clone https://github.com/wting/autojump.git \
 # Set timezone
 RUN apt-get update -y \
         && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata \
+        # Cleanup
+        && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
 ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
