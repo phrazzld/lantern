@@ -71,6 +71,7 @@ RUN curl -fLo ${HOME}/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
         && /root/.cargo/bin/cargo install exa \
         && /root/.cargo/bin/cargo install bat \
+        && /root/.cargo/bin/cargo install ripgrep \
         # Cleanup
         && rm -rf /root/.rustup
 

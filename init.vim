@@ -4,7 +4,9 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+Plug 'jremmen/vim-ripgrep'
 Plug 'luochen1990/rainbow'
 Plug 'rainglow/vim'
 Plug 'jiangmiao/auto-pairs'
@@ -60,6 +62,8 @@ let g:terminal_color_15 = '#eeeeec'
 
 " vim-go path stuff
 let g:go_bin_path = $HOME."/go/bin"
+" vim-ripgrep
+let g:rg_command = 'rg --vimgrep -S'
 
 " Move vertically by visual line (take THAT line wraps!)
 nnoremap j gj
@@ -123,7 +127,7 @@ autocmd BufWritePre *.rs RustFmt
 
 " Different filetypes deserve different colorschemes
 autocmd BufEnter *.md colorscheme carbonight-light
-autocmd BufEnter *.js colorscheme monzo
+autocmd BufEnter *.js,*.jsx,*.ts,*.tsx,*.ejs colorscheme monzo
 autocmd BufEnter *.go colorscheme absent-contrast
 autocmd BufEnter *.rs colorscheme laravel-contrast
 autocmd BufEnter *.rb colorscheme stark
