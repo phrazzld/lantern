@@ -61,6 +61,7 @@ alias gf='git diff'
 alias l="exa --long --all"
 alias lt="exa --long --all --tree"
 alias cat="bat"
+alias fzfv='fzf --bind "enter:execute(nvim {})"'
 # Sourcing
 alias clear="clear && source $HOME/.zshrc"
 # Authenticating
@@ -72,4 +73,13 @@ alias r='rubberduck'
 [[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autojump/etc/profile.d/autojump.sh
 autoload -U compinit && compinit -u
 
+# fzf
+#determines search program for fzf
+if type ag &> /dev/null; then
+    export FZF_DEFAULT_COMMAND='ag -p ~/.gitignore -g ""'
+fi
+#refer rg over ag
+if type rg &> /dev/null; then
+    export FZF_DEFAULT_COMMAND='rg --files --hidden'
+fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
