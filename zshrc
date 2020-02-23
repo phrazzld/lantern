@@ -1,4 +1,4 @@
-ZSH_THEME="nanotech"
+ZSH_THEME="agnoster"
 COMPLETION_WAITING_DOTS="true"
 plugins=(git node python fzf autojump)
 
