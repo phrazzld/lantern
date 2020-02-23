@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM alpine:3.7
 MAINTAINER Phaedrus Raznikov <phraznikov@gmail.com>
 
 ARG HOME=/root
@@ -7,8 +7,8 @@ ARG SEASTEAD_HOME=${HOME}/seastead
 # Core
 RUN export TERM="screen-256color" \
         && export DEBIAN_FRONTEND="noninteractive" \
-        && apt-get update \
-        && apt-get install -y \
+        && apk update \
+        && apk add -y \
         htop \
         bash \
         curl \
@@ -35,29 +35,28 @@ RUN export TERM="screen-256color" \
         zsh \
         gpg-agent \
         silversearcher-ag \
+        # Install Neovim
+        neovim \
+        nodejs \
         && locale-gen en_US.UTF-8 \
         && export LANG="en_US.UTF-8" \
         && export LANGUAGE="en_US:en" \
-        && export LC_ALL="en_US.UTF-8" \
-        # Cleanup
-        && apt-get clean \
-        && rm -rf /var/lib/apt/lists/*
+        && export LC_ALL="en_US.UTF-8"
 
-# Install Neovim
-RUN add-apt-repository -y ppa:neovim-ppa/stable \
-        && apt-get update \
-        && apt-get install -y neovim \
+#RUN add-apt-repository -y ppa:neovim-ppa/stable \
+    #&& apt-get update \
+    #&& apt-get install -y neovim \
         # Cleanup
-        && apt-get clean \
-        && rm -rf /var/lib/apt/lists/*
+        #&& apt-get clean \
+        #&& rm -rf /var/lib/apt/lists/*
 
 # Install Node
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
-        && apt-get update \
-        && apt-get install -y nodejs \
-        # Cleanup
-        && apt-get clean \
-        && rm -rf /var/lib/apt/lists/*
+#RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+#        && apt-get update \
+#        && apt-get install -y nodejs \
+#        # Cleanup
+#        && apt-get clean \
+#        && rm -rf /var/lib/apt/lists/*
 
 # Install Oh My ZSH
 RUN chsh -s $(which zsh) \
@@ -90,8 +89,8 @@ RUN wget https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz \
 
 # LastPass
 # Install dependencies
-RUN apt-get update \
-        && apt-get --no-install-recommends -yqq install \
+RUN apk update \
+        && apk --no-install-recommends -yqq add \
         bash-completion \
         build-essential \
         cmake \
@@ -109,9 +108,6 @@ RUN apt-get update \
         && cd /tmp/lastpass-cli \
         && make \
         && make install \
-        # Cleanup
-        && apt-get clean \
-        && rm -rf /var/lib/apt/lists/*
 
 # Dev config
 RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
@@ -137,11 +133,8 @@ RUN git clone https://github.com/wting/autojump.git \
         && ./install.py
 
 # Set timezone
-RUN apt-get update -y \
-        && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata \
-        # Cleanup
-        && apt-get clean \
-        && rm -rf /var/lib/apt/lists/*
+RUN apk update -y \
+        && DEBIAN_FRONTEND=noninteractive apk add -y tzdata \
 ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN dpkg-reconfigure --frontend noninteractive tzdata
