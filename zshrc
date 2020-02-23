@@ -1,4 +1,4 @@
-ZSH_THEME="typewritten"
+ZSH_THEME="nanotech"
 COMPLETION_WAITING_DOTS="true"
 plugins=(git node python fzf autojump)
 

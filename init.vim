@@ -131,3 +131,5 @@ autocmd BufEnter *.md colorscheme carbonight-light
 autocmd BufEnter *.go colorscheme absent-contrast
 autocmd BufEnter *.rs colorscheme laravel-contrast
 autocmd BufEnter *.rb colorscheme stark
+
+command! Bd :bp | :bd! #
