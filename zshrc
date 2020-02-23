@@ -46,8 +46,9 @@ pullpass() {
 # Aliases for:
 # Editing
 alias v="nvim"
-alias vz="v $HOME/.zshrc"
-alias vn="v $HOME/.config/nvim/init.vim"
+alias vz="v /root/seastead/zshrc"
+alias vn="v /root/seastead/init.vim"
+alias sz="source /root/seastead/zshrc"
 # Gitting
 alias gs='git status'
 alias ga='git add'
@@ -83,3 +84,6 @@ if type rg &> /dev/null; then
     export FZF_DEFAULT_COMMAND='rg --files --hidden'
 fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Startup script
+echo "\nA smooth sea never made a skilled sailor.\n"
