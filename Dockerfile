@@ -115,6 +115,7 @@ RUN apt-get update \
 
 # Dev config
 RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
+        && cd ${SEASTEAD_HOME} \
         && git remote set-url origin git@github.com:phrazzld/seastead.git \
         # zsh config
         && ln -sf ${SEASTEAD_HOME}/zshrc ${HOME}/.zshrc \

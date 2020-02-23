@@ -65,9 +65,10 @@ let g:go_bin_path = $HOME."/go/bin"
 " vim-ripgrep
 let g:rg_command = 'rg --vimgrep -S'
 
-" Move vertically by visual line (take THAT line wraps!)
-nnoremap j gj
-nnoremap k gk
+" g: Move vertically by visual line (take THAT line wraps!)
+" zz: Center focus
+nnoremap j gjzz
+nnoremap k gkzz
 " Hey! You! No arrow keys!
 nnoremap <up> <nop>
 nnoremap <down> <nop>
