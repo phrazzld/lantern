@@ -8,6 +8,7 @@ Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'luochen1990/rainbow'
+Plug 'mhartington/oceanic-next'
 Plug 'rainglow/vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'prettier/vim-prettier', {
@@ -41,7 +42,7 @@ set visualbell
 
 " Favorite colorschemes
 silent! colorscheme elflord
-silent! colorscheme glance
+silent! colorscheme OceanicNext
 
 let g:terminal_color_0  = '#2e3436'
 let g:terminal_color_1  = '#cc0000'
