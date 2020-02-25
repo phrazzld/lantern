@@ -62,7 +62,7 @@ alias gf='git diff'
 alias l="exa --long --all"
 alias lt="exa --long --all --tree"
 alias cat="bat"
-alias fzfv='fzf --bind "enter:execute(nvim {})"'
+alias f='fzf --bind "enter:execute(nvim {})"'
 # Sourcing
 alias clear="clear && source $HOME/.zshrc"
 # Authenticating
