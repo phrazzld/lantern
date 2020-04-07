@@ -126,7 +126,9 @@ RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         && nvim +PlugInstall +qall \
         # gitconfigs
         && ln -sf ${SEASTEAD_HOME}/gitconfig ${HOME}/.gitconfig \
-        && ln -sf ${SEASTEAD_HOME}/gitignore ${HOME}/.gitignore
+        && ln -sf ${SEASTEAD_HOME}/gitignore ${HOME}/.gitignore \
+        # yarn
+        && curl -o- -L https://yarnpkg.com/install.sh | bash
 
 # fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
