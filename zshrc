@@ -69,6 +69,8 @@ alias clear="clear && source $HOME/.zshrc"
 alias agent='eval "$(ssh-agent -s)"; ssh-add ~/.ssh/id_rsa'
 # Rubberducking
 alias r='rubberduck'
+# thefuck
+eval $(thefuck --alias)
 
 # Autojump
 [[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autojump/etc/profile.d/autojump.sh
@@ -87,3 +89,5 @@ fi
 
 # Startup script
 echo "\nA smooth sea never made a skilled sailor.\n"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

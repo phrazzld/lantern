@@ -21,6 +21,7 @@ RUN export TERM="screen-256color" \
         python-pip \
         python3-dev \
         python3-pip \
+        python3-setuptools \
         ctags \
         shellcheck \
         netcat \
@@ -129,6 +130,8 @@ RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         && ln -sf ${SEASTEAD_HOME}/gitignore ${HOME}/.gitignore \
         # yarn
         && curl -o- -L https://yarnpkg.com/install.sh | bash
+        # thefuck
+        && pip3 install thefuck
 
 # fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
