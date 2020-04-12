@@ -137,6 +137,12 @@ autocmd BufEnter *.rs colorscheme laravel-contrast
 
 command! Bd :bp | :bd! #
 
+let g:coc_global_extensions = [
+\ 'coc-json',
+\ 'coc-tsserver',
+\ 'coc-angular',
+\ 'coc-marketplace'
+\ ]
 " coc.nvim config
 set hidden
 set nobackup
