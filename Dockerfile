@@ -36,6 +36,16 @@ RUN export TERM="screen-256color" \
         zsh \
         gpg-agent \
         silversearcher-ag \
+        zlib1g-dev \
+        build-essential \
+        libreadline-dev \
+        libyaml-dev \
+        libsqlite3-dev \
+        sqlite3 \
+        libxml2-dev \
+        libxslt1-dev \
+        libcurl4-openssl-dev \
+        libffi-dev \
         && locale-gen en_US.UTF-8 \
         && export LANG="en_US.UTF-8" \
         && export LANGUAGE="en_US:en" \
@@ -134,7 +144,11 @@ RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         && pip3 install thefuck
 
 # rbenv
-RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash
+RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash \
+        && rbenv init - \
+        # ruby 2.5.5
+        && rbenv install 2.5.5 \
+        && rbenv global 2.5.5
 
 # fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
