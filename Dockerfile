@@ -148,7 +148,8 @@ RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-ins
         && rbenv init - \
         # ruby 2.5.5
         && rbenv install 2.5.5 \
-        && rbenv global 2.5.5
+        && rbenv global 2.5.5 \
+        && gem install rubocop
 
 # fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \

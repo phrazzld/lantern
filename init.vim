@@ -20,6 +20,7 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'ngmy/vim-rubocop'
 call plug#end()
 
 "" Appearance
