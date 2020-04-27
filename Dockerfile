@@ -2,7 +2,9 @@ FROM ubuntu:18.04
 MAINTAINER Phaedrus Raznikov <phraznikov@gmail.com>
 
 ARG HOME=/root
-ARG SEASTEAD_HOME=${HOME}/seastead
+ARG SEASTEAD_HOME=/root/seastead
+ARG RBENV=/root/.rbenv/bin
+ARG RBENV_SHIMS=/root/.rbenv/shims
 
 # Core
 RUN export TERM="screen-256color" \
@@ -124,6 +126,15 @@ RUN apt-get update \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
 
+ENV PATH ${PATH}:${RBENV}:${RBENV_SHIMS}
+
+# rbenv
+RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash \
+        # ruby 2.5.5
+        && /root/.rbenv/bin/rbenv install 2.5.5 \
+        && /root/.rbenv/bin/rbenv global 2.5.5 \
+        && gem install rubocop
+
 # Dev config
 RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         && cd ${SEASTEAD_HOME} \
@@ -142,14 +153,6 @@ RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         && curl -o- -L https://yarnpkg.com/install.sh | bash \
         # thefuck
         && pip3 install thefuck
-
-# rbenv
-RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash \
-        && /root/.rbenv/bin/rbenv init \
-        # ruby 2.5.5
-        && /root/.rbenv/bin/rbenv install 2.5.5 \
-        && /root/.rbenv/bin/rbenv global 2.5.5 \
-        && gem install rubocop
 
 # fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
