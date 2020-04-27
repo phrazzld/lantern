@@ -145,10 +145,10 @@ RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
 
 # rbenv
 RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash \
-        && rbenv init \
+        && /root/.rbenv/bin/rbenv init \
         # ruby 2.5.5
-        && rbenv install 2.5.5 \
-        && rbenv global 2.5.5 \
+        && /root/.rbenv/bin/rbenv install 2.5.5 \
+        && /root/.rbenv/bin/rbenv global 2.5.5 \
         && gem install rubocop
 
 # fzf
