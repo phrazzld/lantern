@@ -57,7 +57,7 @@ RUN export TERM="screen-256color" \
         && rm -rf /var/lib/apt/lists/*
 
 # Install Neovim
-RUN add-apt-repository -y ppa:neovim-ppa/stable \
+RUN add-apt-repository -y ppa:neovim-ppa/unstable \
         && apt-get update \
         && apt-get install -y neovim \
         # Cleanup
