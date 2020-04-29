@@ -65,7 +65,7 @@ RUN add-apt-repository -y ppa:neovim-ppa/unstable \
         && rm -rf /var/lib/apt/lists/*
 
 # Install Node
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
         && apt-get update \
         && apt-get install -y nodejs \
         # Cleanup
