@@ -143,7 +143,6 @@ command! Bd :bp | :bd! #
 let g:coc_global_extensions = [
 \ 'coc-json',
 \ 'coc-tsserver',
-\ 'coc-angular',
 \ 'coc-marketplace',
 \ 'coc-css',
 \ 'coc-solargraph',
