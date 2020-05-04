@@ -67,6 +67,7 @@ alias f='fzf --bind "enter:execute(nvim {})"'
 alias clear="clear && source $HOME/.zshrc"
 # Authenticating
 alias agent='eval "$(ssh-agent -s)"; ssh-add ~/.ssh/id_rsa'
+alias cerego-agent='eval "$(ssh-agent -s)"; ssh-add ~/.ssh/id_rsa_cerego'
 # Rubberducking
 alias r='rubberduck'
 # thefuck
