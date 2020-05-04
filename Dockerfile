@@ -163,7 +163,11 @@ RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         # yarn
         && curl -o- -L https://yarnpkg.com/install.sh | bash \
         # thefuck
-        && pip3 install thefuck
+        && pip3 install thefuck \
+        # awscli v2
+        && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o ${HOME}/awscliv2.zip \
+        && unzip ${HOME}/awscliv2.zip \
+        && ./aws/install
 
 # fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
