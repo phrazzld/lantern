@@ -48,6 +48,7 @@ RUN export TERM="screen-256color" \
         libxslt1-dev \
         libcurl4-openssl-dev \
         libffi-dev \
+        snapd \
         && locale-gen en_US.UTF-8 \
         && export LANG="en_US.UTF-8" \
         && export LANGUAGE="en_US:en" \
