@@ -15,7 +15,6 @@ RUN export TERM="screen-256color" \
         bash \
         curl \
         wget \
-        git \
         vim \
         man \
         software-properties-common \
@@ -48,10 +47,19 @@ RUN export TERM="screen-256color" \
         libxslt1-dev \
         libcurl4-openssl-dev \
         libffi-dev \
+        snapd \
         && locale-gen en_US.UTF-8 \
         && export LANG="en_US.UTF-8" \
         && export LANGUAGE="en_US:en" \
         && export LC_ALL="en_US.UTF-8" \
+        # Cleanup
+        && apt-get clean \
+        && rm -rf /var/lib/apt/lists/*
+
+# Install Git via PPA
+RUN add-apt-repository -y ppa:git-core/ppa \
+        && apt-get update \
+        && apt-get install -y git \
         # Cleanup
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
@@ -142,6 +150,10 @@ RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         # zsh config
         && ln -sf ${SEASTEAD_HOME}/zshrc ${HOME}/.zshrc \
         && export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom" \
+        && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions \
+        && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting \
+        # Cleanup zsh plugin example
+        && rm -rf ${HOME}/.oh-my-zsh/custom/plugins/example \
         # nvim config
         && mkdir -p ${HOME}/.config/nvim \
         && ln -sf ${SEASTEAD_HOME}/init.vim ${HOME}/.config/nvim/init.vim \
@@ -149,6 +161,8 @@ RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         # gitconfigs
         && ln -sf ${SEASTEAD_HOME}/gitconfig ${HOME}/.gitconfig \
         && ln -sf ${SEASTEAD_HOME}/gitignore ${HOME}/.gitignore \
+        # hub
+        && snap install hub --classic \
         # yarn
         && curl -o- -L https://yarnpkg.com/install.sh | bash \
         # thefuck

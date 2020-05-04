@@ -13,7 +13,7 @@ Plug 'rainglow/vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'prettier/vim-prettier', {
     \ 'do': 'npm install',
-    \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+    \ 'for': ['javascript', 'typescript', 'css', 'json', 'markdown', 'yaml', 'html'] }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-rails'
@@ -143,7 +143,6 @@ command! Bd :bp | :bd! #
 let g:coc_global_extensions = [
 \ 'coc-json',
 \ 'coc-tsserver',
-\ 'coc-angular',
 \ 'coc-marketplace',
 \ 'coc-css',
 \ 'coc-solargraph',
