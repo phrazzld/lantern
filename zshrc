@@ -1,6 +1,5 @@
 ZSH_THEME="agnoster"
-COMPLETION_WAITING_DOTS="true"
-plugins=(git node python fzf autojump)
+plugins=(git node python fzf autojump zsh-autosuggestions zsh-syntax-highlighting)
 
 export SHELL="zsh"
 export ZSH=$HOME/.oh-my-zsh

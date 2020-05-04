@@ -150,6 +150,10 @@ RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         # zsh config
         && ln -sf ${SEASTEAD_HOME}/zshrc ${HOME}/.zshrc \
         && export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom" \
+        && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions \
+        && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting \
+        # Cleanup zsh plugin example
+        && rm -rf ${HOME}/.oh-my-zsh/custom/plugins/example \
         # nvim config
         && mkdir -p ${HOME}/.config/nvim \
         && ln -sf ${SEASTEAD_HOME}/init.vim ${HOME}/.config/nvim/init.vim \
