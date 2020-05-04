@@ -15,7 +15,6 @@ RUN export TERM="screen-256color" \
         bash \
         curl \
         wget \
-        git \
         vim \
         man \
         software-properties-common \
@@ -53,6 +52,14 @@ RUN export TERM="screen-256color" \
         && export LANG="en_US.UTF-8" \
         && export LANGUAGE="en_US:en" \
         && export LC_ALL="en_US.UTF-8" \
+        # Cleanup
+        && apt-get clean \
+        && rm -rf /var/lib/apt/lists/*
+
+# Install Git via PPA
+RUN add-apt-repository -y ppa:git-core/ppa \
+        && apt-get update \
+        && apt-get install -y git
         # Cleanup
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
