@@ -128,8 +128,6 @@ let g:prettier#autoformat = 0
 autocmd BufWritePre *.ejs,*.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html Prettier
 " RustFmt all the time always
 autocmd BufWritePre *.rs RustFmt
-" RuboCop
-autocmd BufWritePre *.rb RuboCop -a
 
 " Different filetypes deserve different colorschemes
 "autocmd BufEnter *.js,*.jsx,*.ts,*.tsx,*.ejs colorscheme monzo
