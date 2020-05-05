@@ -139,8 +139,15 @@ ENV PATH ${PATH}:${RBENV}:${RBENV_SHIMS}
 RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash \
         # ruby 2.5.5
         && /root/.rbenv/bin/rbenv install 2.5.5 \
-        && /root/.rbenv/bin/rbenv global 2.5.5 \
-        && gem install rubocop
+        && /root/.rbenv/bin/rbenv install 2.5.1 \
+        && /root/.rbenv/bin/rbenv global 2.5.1 \
+        && gem install rubocop \
+        && gem install rubocop-performance \
+        && gem install rubocop-rspec \
+        && gem install rubocop-rails \
+        && gem install bundler:1.17.3 \
+        && gem install bundler \
+        && gem install solargraph
 
 # Dev config
 RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
