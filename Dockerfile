@@ -149,6 +149,11 @@ RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-ins
         && gem install bundler \
         && gem install solargraph
 
+# awscli
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o ${HOME}/awscliv2.zip \
+        && unzip ${HOME}/awscliv2.zip \
+        && ./aws/install
+
 # Dev config
 RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         && cd ${SEASTEAD_HOME} \
@@ -170,11 +175,7 @@ RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         # yarn
         && curl -o- -L https://yarnpkg.com/install.sh | bash \
         # thefuck
-        && pip3 install thefuck \
-        # awscli v2
-        && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o ${HOME}/awscliv2.zip \
-        && unzip ${HOME}/awscliv2.zip \
-        && ./aws/install
+        && pip3 install thefuck
 
 # fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
