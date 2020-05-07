@@ -57,6 +57,7 @@ alias gap='ga -p'
 alias gh='git checkout'
 alias ghb='gh -b'
 alias gf='git diff'
+alias resolve-conflicts='git diff --name-only | uniq | xargs nvim'
 # Looking
 alias l="exa --long --all"
 alias lt="exa --long --all --tree"
