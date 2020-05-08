@@ -145,7 +145,8 @@ let g:coc_global_extensions = [
 \ 'coc-css',
 \ 'coc-solargraph',
 \ 'coc-angular',
-\ 'coc-yaml'
+\ 'coc-yaml',
+\ 'coc-html'
 \ ]
 " coc.nvim config
 set hidden
