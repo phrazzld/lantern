@@ -21,12 +21,13 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'ngmy/vim-rubocop'
+Plug 'flazz/vim-colorschemes'
 call plug#end()
 
 "" Appearance
 set termguicolors
-set background=dark
 syntax enable
+set background=light
 set number
 set cursorline
 set linespace=3
@@ -43,8 +44,8 @@ set backspace=indent,eol,start
 set visualbell
 
 " Favorite colorschemes
-silent! colorscheme elflord
-silent! colorscheme OceanicNext
+silent! colorscheme evening
+colorscheme PaperColor
 
 let g:terminal_color_0  = '#2e3436'
 let g:terminal_color_1  = '#cc0000'
