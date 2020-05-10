@@ -45,7 +45,7 @@ set visualbell
 
 " Favorite colorschemes
 silent! colorscheme evening
-colorscheme PaperColor
+colorscheme Tomorrow
 
 let g:terminal_color_0  = '#2e3436'
 let g:terminal_color_1  = '#cc0000'
