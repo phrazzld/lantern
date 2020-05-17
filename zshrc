@@ -1,4 +1,4 @@
-ZSH_THEME="agnoster"
+ZSH_THEME="bullet-train"
 plugins=(git node python fzf autojump zsh-autosuggestions zsh-syntax-highlighting)
 
 export SHELL="zsh"

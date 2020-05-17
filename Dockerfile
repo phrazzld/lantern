@@ -175,7 +175,9 @@ RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         # yarn
         && curl -o- -L https://yarnpkg.com/install.sh | bash \
         # thefuck
-        && pip3 install thefuck
+        && pip3 install thefuck \
+        # bullet-train
+        && wget -O ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/bullet-train.zsh-theme http://raw.github.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme
 
 # fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
