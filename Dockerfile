@@ -9,8 +9,11 @@ ARG RBENV_SHIMS=/root/.rbenv/shims
 # Core
 RUN export TERM="screen-256color" \
         && export DEBIAN_FRONTEND="noninteractive" \
+        && sed -i 's,^path-exclude=/usr/share/man/,#path-exclude=/usr/share/man/,' /etc/dpkg/dpkg.cfg.d/excludes \
         && apt-get update \
         && apt-get install -y \
+        man \
+        manpages-posix \
         htop \
         bash \
         curl \
