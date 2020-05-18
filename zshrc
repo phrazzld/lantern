@@ -1,5 +1,14 @@
-ZSH_THEME="bullet-train"
+ZSH_THEME="spaceship"
 plugins=(git node python fzf autojump zsh-autosuggestions zsh-syntax-highlighting)
+
+#ZSH_THEME_RANDOM_CANDIDATES=(
+#    "spaceship"
+#    "bullet-train"
+#    "agnoster"
+#    "robbyrussell"
+#    "wezm"
+#    "flazz"
+#)
 
 export SHELL="zsh"
 export ZSH=$HOME/.oh-my-zsh
