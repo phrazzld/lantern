@@ -1,14 +1,9 @@
 ZSH_THEME="spaceship"
 plugins=(git node python fzf autojump zsh-autosuggestions zsh-syntax-highlighting)
 
-#ZSH_THEME_RANDOM_CANDIDATES=(
-#    "spaceship"
-#    "bullet-train"
-#    "agnoster"
-#    "robbyrussell"
-#    "wezm"
-#    "flazz"
-#)
+SPACESHIP_USER_SHOW=always
+SPACESHIP_HOST_SHOW=always
+SPACESHIP_HOST_SHOW_FULL=true
 
 export SHELL="zsh"
 export ZSH=$HOME/.oh-my-zsh
