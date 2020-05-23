@@ -1,9 +1,4 @@
-ZSH_THEME="spaceship"
-plugins=(git node python fzf autojump zsh-autosuggestions zsh-syntax-highlighting)
-
-SPACESHIP_USER_SHOW=always
-SPACESHIP_HOST_SHOW=always
-SPACESHIP_HOST_SHOW_FULL=true
+plugins=(git node fzf autojump zsh-autosuggestions zsh-syntax-highlighting)
 
 export SHELL="zsh"
 export ZSH=$HOME/.oh-my-zsh
@@ -92,9 +87,6 @@ if type rg &> /dev/null; then
 fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Startup script
-echo "\nA smooth sea never made a skilled sailor.\n"
-
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # rbenv
@@ -104,3 +96,8 @@ eval "$(rbenv init -)"
 # Bullet-train theme stuff
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+
+# Startup script
+echo "\nA smooth sea never made a skilled sailor.\n"
+# Use starship prompt
+eval "$(starship init zsh)"

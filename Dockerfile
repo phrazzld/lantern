@@ -95,6 +95,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
         && /root/.cargo/bin/cargo install exa \
         && /root/.cargo/bin/cargo install bat \
         && /root/.cargo/bin/cargo install ripgrep \
+        && /root/.cargo/bin/cargo install starship \
         # Cleanup
         && rm -rf /root/.rustup
 
