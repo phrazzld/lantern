@@ -98,6 +98,7 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 # Startup script
-echo "\nA smooth sea never made a skilled sailor.\n"
+printf "\n"
+shuf -n 1 $HOME/.quotes
 # Use starship prompt
 eval "$(starship init zsh)"
