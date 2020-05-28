@@ -188,7 +188,16 @@ RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         && wget -O ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/bullet-train.zsh-theme http://raw.github.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme \
         # spaceship
         && git clone https://github.com/denysdovhan/spaceship-prompt.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/spaceship-prompt \
-        && ln -s ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/spaceship-prompt/spaceship.zsh-theme ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/spaceship.zsh-theme
+        && ln -s ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/spaceship-prompt/spaceship.zsh-theme ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/spaceship.zsh-theme \
+        # effortless ctags with git
+        && mkdir -p ${HOME}/.git_template/hooks \
+        && ln -sf ${SEASTEAD_HOME}/hooks/ctags ${HOME}/.git_template/hooks/ctags \
+        && ln -sf ${SEASTEAD_HOME}/hooks/post-commit ${HOME}/.git_template/hooks/post-commit \
+        && ln -sf ${SEASTEAD_HOME}/hooks/post-merge ${HOME}/.git_template/hooks/post-merge \
+        && ln -sf ${SEASTEAD_HOME}/hooks/post-checkout ${HOME}/.git_template/hooks/post-checkout \
+        && ln -sf ${SEASTEAD_HOME}/hooks/post-rewrite ${HOME}/.git_template/hooks/post-rewrite \
+        && chmod +x ${HOME}/.git_template/hooks/*
+
 
 # fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \

@@ -18,3 +18,5 @@
     c = commit -m
     h = push
     l = pull
+[init]
+	templatedir = ~/.git_template
