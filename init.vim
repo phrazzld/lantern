@@ -272,3 +272,6 @@ nnoremap <silent> <space>j :<C-u>CocNext<CR>
 nnoremap <silent> <space>k :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p :<C-u>CocListResume<CR>
+
+" remap FZF
+nnoremap <silent> <C-z> :FZF<CR>
