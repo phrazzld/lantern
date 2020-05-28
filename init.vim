@@ -22,6 +22,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'ngmy/vim-rubocop'
 Plug 'flazz/vim-colorschemes'
+Plug 'vim-ruby/vim-ruby'
 call plug#end()
 
 "" Appearance
