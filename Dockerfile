@@ -6,6 +6,9 @@ ARG SEASTEAD_HOME=/root/seastead
 ARG RBENV=/root/.rbenv/bin
 ARG RBENV_SHIMS=/root/.rbenv/shims
 
+ENV PATH ${PATH}:${RBENV}:${RBENV_SHIMS}
+ENV TZ=America/Los_Angeles
+
 # Core
 RUN export TERM="screen-256color" \
         && export DEBIAN_FRONTEND="noninteractive" \
@@ -56,51 +59,43 @@ RUN export TERM="screen-256color" \
         && export LC_ALL="en_US.UTF-8" \
         # Cleanup
         && apt-get clean \
-        && rm -rf /var/lib/apt/lists/*
-
-# Install Git via PPA
-RUN add-apt-repository -y ppa:git-core/ppa \
+        && rm -rf /var/lib/apt/lists/* \
+        # Install Git via PPA
+        && add-apt-repository -y ppa:git-core/ppa \
         && apt-get update \
         && apt-get install -y git \
         # Cleanup
         && apt-get clean \
-        && rm -rf /var/lib/apt/lists/*
-
-# Install Neovim
-RUN add-apt-repository -y ppa:neovim-ppa/unstable \
+        && rm -rf /var/lib/apt/lists/* \
+        # Install Neovim
+        && add-apt-repository -y ppa:neovim-ppa/unstable \
         && apt-get update \
         && apt-get install -y neovim \
         # Cleanup
         && apt-get clean \
-        && rm -rf /var/lib/apt/lists/*
-
-# Install Node
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+        && rm -rf /var/lib/apt/lists/* \
+        # Install Node
+        && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
         && apt-get update \
         && apt-get install -y nodejs \
         # Cleanup
         && apt-get clean \
-        && rm -rf /var/lib/apt/lists/*
-
-# Install Oh My ZSH
-RUN chsh -s $(which zsh) \
-        && curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh || true
-
-# Install Vim Plug
-RUN curl -fLo ${HOME}/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | bash -
-
-# Install Rust
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
+        && rm -rf /var/lib/apt/lists/* \
+        # Install Oh My ZSH
+        && chsh -s $(which zsh) \
+        && curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh || true \
+        # Install Vim Plug
+        && curl -fLo ${HOME}/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | bash - \
+        # Install Rust
+        && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
         && /root/.cargo/bin/cargo install exa \
         && /root/.cargo/bin/cargo install bat \
         && /root/.cargo/bin/cargo install ripgrep \
         && /root/.cargo/bin/cargo install starship \
         # Cleanup
-        && rm -rf /root/.rustup
-
-# Install Go (and rubberduck)
-RUN wget https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz \
+        && rm -rf /root/.rustup \
+        # Install Go (and rubberduck)
+        && wget https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz \
         && tar -xvf go1.13.3.linux-amd64.tar.gz \
         && chown -R root:root ./go \
         && mv go /usr/local \
@@ -110,11 +105,10 @@ RUN wget https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz \
         # Cleanup
         && rm /go1.13.3.linux-amd64.tar.gz \
         && rm -rf /root/go/src \
-        && rm -rf /root/.cache
-
-# LastPass
-# Install dependencies
-RUN apt-get update \
+        && rm -rf /root/.cache \
+        # LastPass
+        # Install dependencies
+        && apt-get update \
         && apt-get --no-install-recommends -yqq install \
         bash-completion \
         build-essential \
@@ -135,12 +129,9 @@ RUN apt-get update \
         && make install \
         # Cleanup
         && apt-get clean \
-        && rm -rf /var/lib/apt/lists/*
-
-ENV PATH ${PATH}:${RBENV}:${RBENV_SHIMS}
-
-# rbenv
-RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash \
+        && rm -rf /var/lib/apt/lists/* \
+        # rbenv
+        && curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash \
         # ruby 2.5.5
         && /root/.rbenv/bin/rbenv install 2.5.5 \
         && /root/.rbenv/bin/rbenv install 2.5.1 \
@@ -151,15 +142,13 @@ RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-ins
         && gem install rubocop-rails \
         && gem install bundler:1.17.3 \
         && gem install bundler \
-        && gem install solargraph
-
-# awscli
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o ${HOME}/awscliv2.zip \
+        && gem install solargraph \
+        # awscli
+        && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o ${HOME}/awscliv2.zip \
         && unzip ${HOME}/awscliv2.zip \
-        && ./aws/install
-
-# Dev config
-RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
+        && ./aws/install \
+        # Dev config
+        && git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         && cd ${SEASTEAD_HOME} \
         && git remote set-url origin git@github.com:phrazzld/seastead.git \
         # zsh config
@@ -196,21 +185,17 @@ RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         && ln -sf ${SEASTEAD_HOME}/hooks/post-merge ${HOME}/.git_template/hooks/post-merge \
         && ln -sf ${SEASTEAD_HOME}/hooks/post-checkout ${HOME}/.git_template/hooks/post-checkout \
         && ln -sf ${SEASTEAD_HOME}/hooks/post-rewrite ${HOME}/.git_template/hooks/post-rewrite \
-        && chmod +x ${HOME}/.git_template/hooks/*
-
-
-# fzf
-RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
-    && ~/.fzf/install
-
-# Autojump
-RUN git clone https://github.com/wting/autojump.git \
+        && chmod +x ${HOME}/.git_template/hooks/* \
+        # fzf
+        && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
+        && ~/.fzf/install \
+        # Autojump
+        && git clone https://github.com/wting/autojump.git \
         && cd autojump \
         && export SHELL="zsh" \
-        && ./install.py
-
-# Docker
-RUN apt-get update && apt-get install -y \
+        && ./install.py \
+        # Docker
+        && apt-get update && apt-get install -y \
         apt-transport-https \
         ca-certificates \
         curl \
@@ -222,17 +207,15 @@ RUN apt-get update && apt-get install -y \
         && apt-get install -y docker-ce docker-ce-cli containerd.io \
         # Docker Compose
         && curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
-        && chmod +x /usr/local/bin/docker-compose
-
-# Set timezone
-RUN apt-get update -y \
+        && chmod +x /usr/local/bin/docker-compose \
+        # Set timezone
+        && apt-get update -y \
         && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata \
         # Cleanup
         && apt-get clean \
-        && rm -rf /var/lib/apt/lists/*
-ENV TZ=America/Los_Angeles
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN dpkg-reconfigure --frontend noninteractive tzdata
+        && rm -rf /var/lib/apt/lists/* \
+        && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
+        && dpkg-reconfigure --frontend noninteractive tzdata
 
 WORKDIR ${HOME}/respubliko
 
