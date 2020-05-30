@@ -25,3 +25,6 @@ disabled = true
 
 [time]
 disabled = false
+
+[ruby]
+symbol = "ruby "
