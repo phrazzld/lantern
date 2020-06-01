@@ -59,43 +59,50 @@ RUN export TERM="screen-256color" \
         && export LC_ALL="en_US.UTF-8" \
         # Cleanup
         && apt-get clean \
-        && rm -rf /var/lib/apt/lists/* \
-        # Install Git via PPA
-        && add-apt-repository -y ppa:git-core/ppa \
+        && rm -rf /var/lib/apt/lists/*
+
+# Install Git via PPA
+RUN add-apt-repository -y ppa:git-core/ppa \
         && apt-get update \
         && apt-get install -y git \
         # Cleanup
         && apt-get clean \
-        && rm -rf /var/lib/apt/lists/* \
-        # Install Neovim
-        && add-apt-repository -y ppa:neovim-ppa/unstable \
+        && rm -rf /var/lib/apt/lists/*
+
+# Install Neovim
+RUN add-apt-repository -y ppa:neovim-ppa/unstable \
         && apt-get update \
         && apt-get install -y neovim \
         # Cleanup
         && apt-get clean \
-        && rm -rf /var/lib/apt/lists/* \
-        # Install Node
-        && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+        && rm -rf /var/lib/apt/lists/*
+
+# Install Node
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
         && apt-get update \
         && apt-get install -y nodejs \
         # Cleanup
         && apt-get clean \
-        && rm -rf /var/lib/apt/lists/* \
-        # Install Oh My ZSH
-        && chsh -s $(which zsh) \
-        && curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh || true \
-        # Install Vim Plug
-        && curl -fLo ${HOME}/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | bash - \
-        # Install Rust
-        && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
+        && rm -rf /var/lib/apt/lists/*
+
+# Install Oh My ZSH
+RUN chsh -s $(which zsh) \
+        && curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh || true
+
+# Install Vim Plug
+RUN curl -fLo ${HOME}/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | bash -
+
+# Install Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
         && /root/.cargo/bin/cargo install exa \
         && /root/.cargo/bin/cargo install bat \
         && /root/.cargo/bin/cargo install ripgrep \
         && /root/.cargo/bin/cargo install starship \
         # Cleanup
-        && rm -rf /root/.rustup \
-        # Install Go (and rubberduck)
-        && wget https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz \
+        && rm -rf /root/.rustup
+
+# Install Go (and rubberduck)
+RUN wget https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz \
         && tar -xvf go1.13.3.linux-amd64.tar.gz \
         && chown -R root:root ./go \
         && mv go /usr/local \
@@ -105,10 +112,11 @@ RUN export TERM="screen-256color" \
         # Cleanup
         && rm /go1.13.3.linux-amd64.tar.gz \
         && rm -rf /root/go/src \
-        && rm -rf /root/.cache \
-        # LastPass
-        # Install dependencies
-        && apt-get update \
+        && rm -rf /root/.cache
+
+# LastPass
+# Install dependencies
+RUN apt-get update \
         && apt-get --no-install-recommends -yqq install \
         bash-completion \
         build-essential \
@@ -129,9 +137,10 @@ RUN export TERM="screen-256color" \
         && make install \
         # Cleanup
         && apt-get clean \
-        && rm -rf /var/lib/apt/lists/* \
-        # rbenv
-        && curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash \
+        && rm -rf /var/lib/apt/lists/*
+
+# rbenv
+RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash \
         # ruby 2.5.5
         && /root/.rbenv/bin/rbenv install 2.5.5 \
         && /root/.rbenv/bin/rbenv install 2.5.1 \
@@ -142,13 +151,15 @@ RUN export TERM="screen-256color" \
         && gem install rubocop-rails \
         && gem install bundler:1.17.3 \
         && gem install bundler \
-        && gem install solargraph \
-        # awscli
-        && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o ${HOME}/awscliv2.zip \
+        && gem install solargraph
+
+# awscli
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o ${HOME}/awscliv2.zip \
         && unzip ${HOME}/awscliv2.zip \
-        && ./aws/install \
-        # Dev config
-        && git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
+        && ./aws/install
+
+# Dev config
+RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         && cd ${SEASTEAD_HOME} \
         && git remote set-url origin git@github.com:phrazzld/seastead.git \
         # zsh config
@@ -157,9 +168,10 @@ RUN export TERM="screen-256color" \
         && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions \
         && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting \
         # Cleanup zsh plugin example
-        && rm -rf ${HOME}/.oh-my-zsh/custom/plugins/example \
-        # nvim config
-        && mkdir -p ${HOME}/.config/nvim \
+        && rm -rf ${HOME}/.oh-my-zsh/custom/plugins/example
+
+# nvim config
+RUN mkdir -p ${HOME}/.config/nvim \
         && ln -sf ${SEASTEAD_HOME}/init.vim ${HOME}/.config/nvim/init.vim \
         && nvim +PlugInstall +qall \
         # gitconfigs
@@ -188,9 +200,10 @@ RUN export TERM="screen-256color" \
         && chmod +x ${HOME}/.git_template/hooks/* \
         # fzf
         && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
-        && ~/.fzf/install \
-        # Autojump
-        && git clone https://github.com/wting/autojump.git \
+        && ~/.fzf/install
+
+# Autojump
+RUN git clone https://github.com/wting/autojump.git \
         && cd autojump \
         && export SHELL="zsh" \
         && ./install.py \
