@@ -20,3 +20,6 @@ venv/
 
 # npm packages
 node_modules/
+
+# ctags
+tags
