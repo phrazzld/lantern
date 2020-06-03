@@ -90,7 +90,8 @@ RUN chsh -s $(which zsh) \
         && curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh || true
 
 # Install Vim Plug
-RUN curl -fLo ${HOME}/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | bash -
+RUN curl -fLo ${HOME}/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | bash -
 
 # Install Rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
@@ -168,10 +169,9 @@ RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions \
         && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting \
         # Cleanup zsh plugin example
-        && rm -rf ${HOME}/.oh-my-zsh/custom/plugins/example
-
-# nvim config
-RUN mkdir -p ${HOME}/.config/nvim \
+        && rm -rf ${HOME}/.oh-my-zsh/custom/plugins/example \
+        # nvim config
+        && mkdir -p ${HOME}/.config/nvim \
         && ln -sf ${SEASTEAD_HOME}/init.vim ${HOME}/.config/nvim/init.vim \
         && nvim +PlugInstall +qall \
         # gitconfigs
@@ -197,9 +197,10 @@ RUN mkdir -p ${HOME}/.config/nvim \
         && ln -sf ${SEASTEAD_HOME}/hooks/post-merge ${HOME}/.git_template/hooks/post-merge \
         && ln -sf ${SEASTEAD_HOME}/hooks/post-checkout ${HOME}/.git_template/hooks/post-checkout \
         && ln -sf ${SEASTEAD_HOME}/hooks/post-rewrite ${HOME}/.git_template/hooks/post-rewrite \
-        && chmod +x ${HOME}/.git_template/hooks/* \
-        # fzf
-        && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
+        && chmod +x ${HOME}/.git_template/hooks/*
+
+# fzf
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
         && ~/.fzf/install
 
 # Autojump
@@ -216,7 +217,7 @@ RUN apt-get update \
         curl \
         gnupg-agent \
         software-properties-common \
-        && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - \
+        && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
         && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
         && apt-get update \
         && apt-get install -y docker-ce docker-ce-cli containerd.io \
@@ -229,8 +230,9 @@ RUN apt-get update -y \
         && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata \
         # Cleanup
         && apt-get clean \
-        && rm -rf /var/lib/apt/lists/* \
-        && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
+        && rm -rf /var/lib/apt/lists/*
+
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
         && dpkg-reconfigure --frontend noninteractive tzdata
 
 WORKDIR ${HOME}/respubliko
