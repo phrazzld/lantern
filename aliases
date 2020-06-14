@@ -1,0 +1,28 @@
+# Aliases for:
+# Editing
+alias v="nvim"
+alias vz="v /root/seastead/zshrc"
+alias vn="v /root/seastead/init.vim"
+alias sz="source /root/seastead/zshrc"
+# Gitting
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+alias gap='ga -p'
+alias gh='git checkout'
+alias ghb='gh -b'
+alias gf='git diff'
+alias resolve-conflicts='git diff --name-only | uniq | xargs nvim'
+# Looking
+alias l="exa --long --all"
+alias lt="exa --long --all --tree"
+alias cat="bat"
+alias f='fzf --bind "enter:execute(nvim {})"'
+# Sourcing
+alias clear="clear && source $HOME/.zshrc"
+# Authenticating
+alias agent='eval "$(ssh-agent -s)"; ssh-add ~/.ssh/id_rsa'
+alias cerego-agent='eval "$(ssh-agent -s)"; ssh-add ~/.ssh/id_rsa_cerego'
+# Rubberducking
+alias r='rubberduck'

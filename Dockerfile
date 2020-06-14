@@ -177,6 +177,8 @@ RUN git clone https://github.com/phrazzld/seastead ${SEASTEAD_HOME} \
         # gitconfigs
         && ln -sf ${SEASTEAD_HOME}/gitconfig ${HOME}/.gitconfig \
         && ln -sf ${SEASTEAD_HOME}/gitignore ${HOME}/.gitignore \
+        # aliases
+        && ln -sf ${SEASTEAD_HOME}/aliases ${HOME}/.aliases \
         # starship config
         && ln -sf ${SEASTEAD_HOME}/starship.toml ${HOME}/.config/starship.toml \
         # startup messages
